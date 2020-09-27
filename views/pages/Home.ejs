@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<head>
+    <title>Assignment 4</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style type="text/css">
+        .panel{
+            background-color: #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .center-block{
+            text-align: center;
+        }
+        #userInput{
+            width: 100%;
+        }
+        #screen{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            left: 0px;
+            top: 0px;
+            position: fixed;
+            z-index: 2;
+            background-image: url(img/load.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
+        #ErrorMessage{
+            font-weight: bold;
+            color: #ff0000;
+        }
+        #score{
+            font-size: 25px;
+        }
+        .fb{
+            padding-right: 25px;
+        }
+        .directions{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcom <%= user.displayName %></h1>
+        <h1 class="center-block">Assignment 4 Page</h2>
+        <hr/>
+        <div class="panel">
+            <h2>General Directions</h2>
+            <p>For this assignment, you will have four tasks. To choose each task, click on the drop-down menu and choose the task you want to work on. </p>
+            <p>To make sure that your Regular Expression answers work, follow the following format:</p>
+            <p>s/<span style="color:crimson;">regular_expressions</span>/<span style="color:darkgreen;">replacement</span>/<span style="color:darkorchid">switches</span></p>
+            <p>This means that you can put in more than one regular expressions separated by a new line. Also, each line or each expressions must start with s/ and then followed by <span style="color:crimson;">your regular expression</span>. Then, after a / you must put in what you want the searhc patter to be replaced with, i.e. <span style="color:darkgreen;">replacement</span>, and finally, after one last / you must put the <span style="color:darkorchid">switches</span>, such as global (g) or multiline(m)..</p>
+            <p>You can click on the "Test" button any time you want to test your score and accuracy of your regular expression. The scores that you will see will be entered as your Assignmetn 4 scores.</p>
+        </div>
+        <hr/>
+        <p>
+            Choose the task&nbsp;
+            <select id="taskType" onchange="changeTask(this)">
+                <option value="haigyPaigy">Task 1: Haigy Paigy</option>
+                <option value="articleReplacement">Task 2: Article Replacement</option>
+                <option value="turkishPlurals">Task 3: Turkish Plurals</option>
+                <option value="corpusCleaning">Task 4: Corpus Cleaning</option>
+            </select>
+        </p>
+        <div id="haigyPaigy" class="panel directions">
+            <h2>1.	Haigy Paigy</h2>
+
+            <p>Haigy Paigy is as a children's invented language which sounds exactly like English, except that “aig” is inserted before the vowel sound of each syllable. E.g., the English word “hello” becomes “haigellaigo” in Haigy Paigy. Write a set of regular expressions that will automatically translate sentences from English into Haigy Paigy. The input of your program will be a string containing one English sentence. Your regular expressions should translate this sentence into Haigy Paigy.</p>
+
+            <p>Simplifications: only vowels can be syllable nuclei; "y" is always a vowel; several consecutive vowel letters always make a single vowel sound; the final "e" is always silent, except when it is the only vowel letter in the word.</p>
+
+            <p>Example input: This is a test.</p>
+
+            <p>Example output: Thaigis aigis aiga taigest.</p>
+
+        </div>
+        <div id="articleReplacement" class="panel directions">
+            <h2>2. Article Replacement</h2>
+            <p>Write a set of regular expressions that will automatically replace all instances of the indefinite article ‘a’/’an’ with the definite article ‘the’ and vice versa. The input of your program will be a string of English words.</p>
+
+            <p>Example input: The student. An example.</p>
+
+            <p>Example output: A student. The example.</p>
+        </div>
+        <div id="turkishPlurals" class="panel directions">
+            <h2>3. Turkish Plurals</h2>
+
+            <p>As many other agglutinative languages, Turkish has a feature called vowel harmony. Turkish has eight vowels that are divided into two groups as follows:
+            <br/>the back vowels are A I O U
+            <br/>the front vowels are E İ Ö Ü</p>
+
+            <p>Note: Iı and İi are different vowels!</p>
+
+            <p>There is a single plural suffix in Turkish, but it has two variants (allomorphs): -ler and -lar. The vowel in the suffix mirrors the last vowel of its noun. We must add -lar to words whose final vowel is any of the back vowels, and -ler to words whose final vowel is any of the front vowels.</p>
+
+            <p>
+                Examples:
+                <ul>
+                    <li>balta 'axe' : baltalar 'axes'</li>
+                    <li>kapı 'door' : kapılar 'doors'</p>
+                    <li>palto 'overcoat' : paltolar 'overcoats'</p>
+                    <li>boncuk 'bead' : boncuklar 'beads'</p>
+                    <li>ev 'house' : evler 'houses'</p>
+                    <li>kedi 'cat' : kediler 'cats'</p>
+                    <li>göz 'eye' : gözler 'eyes'</p>
+                    <li>ödül 'award' : ödüller 'awards'</p>
+                </ul>
+            </p>
+
+            <p>Important: For simplicity and in order to avoid dealing with Unicode, we will encode ö and ü as the upper-case letters O and U, respectfully. Also, we will encode the undotted ı as the upper-case I. For example, we will write gözler as gOzler, ödül as OdUl, and kapı as kapI.</p>
+
+            <p>Write a set of regular expressions that will pluralize Turkish nouns. The input of your program will be a singular Turkish noun. Your regular expressions should make this noun plural.<br/>   
+            Example input: gOz<br/>
+
+            Example output: gOzler</p>
+
+        </div>
+        <div id="corpusCleaning" class="panel directions">
+            <h2>4. Corpus Cleaning</h2>
+
+            <p>Linguists often need to use computers to deal with human language, especially when the dataset is very large. Large collections of authentic language are called corpora (singular corpus), and the field that primarily deals with analyzing corpora for patterns is called corpus linguistics.</p> 
+            
+            <p>However, computers often require special formatting of human language in order to properly analyze it. Before corpus linguists begin their analysis, they often have to first clean their data, often involving the removal of (certain types of) punctuation, extra whitespace, unwanted characters, etc.</p> 
+            
+            <p>Write a set of regular expressions that removes punctuation and extra whitespace from an English sentence. The input of your program will be a string containing one English sentence. Your regular expressions should remove the punctuation and extra whitespace from this sentence.</p> 
+            
+            <p>Example input: This is an example sentence,        and here is another.</p>
+            
+            <p>Example output: This is an example sentence and here is another</p>
+        </div>
+        <hr/>
+        <div class="panel">
+            <textarea id="userInput"></textarea>
+            <div id="ErrorMessage"></div>
+            <button onclick="testThis()" class="btn btn-danger">Test Your Regex and Save your results</button>
+        </div>
+        <hr/>
+        <div id="score"></div>
+        <hr/>
+        <div id="passFail"></div>
+    </div>
+    <div id="screen">
+
+    </div>
+
+    <script type="text/javascript">
+    $('#haigyPaigy').fadeIn();
+    var userEmail = '<%- JSON.stringify(user.emails[0].value) %>';
+    var fb = '<%- JSON.stringify(feedback) %>';
+    fb = JSON.parse(fb);
+    if (fb != ""){
+        $('#userInput').val(fb.haigyPaigy.answer);
+        $('#score').html(fb.haigyPaigy.feedback.score);
+        jQuery.each(fb.haigyPaigy.feedback.passFail, function (i, val){
+                                var feedback = $('<p />');
+                                var f1 = $('<span class="fb"/>');
+                                var f2 = $('<span />');
+                                $(f1).html(i);
+                                $(f2).html(val);
+                                if (val == "FAIL"){
+                                    $(f1).css('color', 'red');
+                                    $(f2).css('color', 'red');
+                                }
+                                else{
+                                    $(f1).css('color', 'green');
+                                    $(f2).css('color', 'green');
+                                }
+                                $(feedback).append($(f1));
+                                $(feedback).append($(f2));
+                                $('#passFail').append($(feedback));
+                            })
+
+    }
+    console.log(fb);
+        function testThis(){
+            $('#score').html('');
+            $('#passFail').html('');
+            var regex = /s\/(.*?)\/.*?\/g?m?i?$/;
+            var lines = $('#userInput').val().split(/\r?\n/);
+            for (var i = 0; i<lines.length; i++){
+                if (!lines[i].match(regex)){
+                    $('#ErrorMessage').html('The format of your regex is not correct');
+                    return;
+                }
+            }
+            
+            $('#ErrorMessage').html();
+            $('#screen').fadeIn();
+            var task = $('#taskType').val();
+            var response = $('#userInput').val();
+            var data = {};
+			data.task = task;
+            data.response = response;
+            data.user = userEmail.replace(/\"/g, '');
+					
+					$.ajax({
+						type: 'POST',
+						data: JSON.stringify(data),
+				        contentType: 'application/json',
+                        url: 'http://localhost:3000/TestThis',
+                        dataType: 'json',						
+                        success: function(data) {
+                            $('#score').html('Score: ' + data.score + '%');
+                            jQuery.each(data.passFail, function (i, val){
+                                var feedback = $('<p />');
+                                var f1 = $('<span class="fb"/>');
+                                var f2 = $('<span />');
+                                $(f1).html(i);
+                                $(f2).html(val);
+                                if (val == "FAIL"){
+                                    $(f1).css('color', 'red');
+                                    $(f2).css('color', 'red');
+                                }
+                                else{
+                                    $(f1).css('color', 'green');
+                                    $(f2).css('color', 'green');
+                                }
+                                $(feedback).append($(f1));
+                                $(feedback).append($(f2));
+                                $('#passFail').append($(feedback));
+                            })
+
+                            $('#screen').fadeOut();
+                        },
+                        failure: function(data){
+                            $('#ErrorMessage').html("An error occurred on the server.");
+                        }
+                    });
+        }
+        function changeTask(control){
+            $('.panel').hide();
+            $('#' + control.value).fadeIn();
+            $('#userInput').val('');
+            $('#score').html('');
+            $('#passFail').html('');
+            var obj = fb[control.value];
+            $('#userInput').val(obj.answer);
+            $('#score').html(obj.feedback.score);
+            jQuery.each(obj.feedback.passFail, function (i, val){
+                                    var feedback = $('<p />');
+                                    var f1 = $('<span class="fb"/>');
+                                    var f2 = $('<span />');
+                                    $(f1).html(i);
+                                    $(f2).html(val);
+                                    if (val == "FAIL"){
+                                        $(f1).css('color', 'red');
+                                        $(f2).css('color', 'red');
+                                    }
+                                    else{
+                                        $(f1).css('color', 'green');
+                                        $(f2).css('color', 'green');
+                                    }
+                                    $(feedback).append($(f1));
+                                    $(feedback).append($(f2));
+                                    $('#passFail').append($(feedback));
+                                })
+                
+            }
+    </script>
+
+</body>
