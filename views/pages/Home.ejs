@@ -190,7 +190,7 @@
                 }
             }
             
-            $('#ErrorMessage').html();
+            $('#ErrorMessage').html('');
             $('#screen').fadeIn();
             var task = $('#taskType').val();
             var response = $('#userInput').val();
@@ -206,7 +206,11 @@
                         url: 'http://localhost:3000/TestThis',
                         dataType: 'json',						
                         success: function(data) {
-                            $('#score').html('Score: ' + data.score + '%');
+                            if (data.score == "undefined"){
+                                $('#ErrorMessage').html('The format of your regex is not correct');
+                            }
+                            else{
+                                $('#score').html('Score: ' + data.score + '%');
                             jQuery.each(data.passFail, function (i, val){
                                 var feedback = $('<p />');
                                 var f1 = $('<span class="fb"/>');
@@ -225,6 +229,9 @@
                                 $(feedback).append($(f2));
                                 $('#passFail').append($(feedback));
                             })
+
+                            }
+                            
 
                             $('#screen').fadeOut();
                         },

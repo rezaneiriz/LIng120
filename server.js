@@ -24,9 +24,40 @@ app.get('/', function(req, res) {
   //res.sendFile(__dirname + '/Home.html');
 });
 
+app.get('/results', function(req, res){
+  res.render('pages/results',{
+    t1score : "NA",
+    t2score : "NA",
+    t3score : "NA",
+    t4score : "NA"
+  });
+})
+app.post('/StudentResult', function(req, res){
+  fs.readFile('Answers.json', 'utf8', function(err, data){
+    if (err){
+        console.log(err);
+    } else {
+      var obj = JSON.parse(data); //now it an object
+      obj = obj[req.body.stu];
+      res.render('pages/results',{
+        t1score : obj.haigyPaigy.feedback.score,
+        t2score : obj.articleReplacement.feedback.score,
+        t3score : obj.turkishPlurals.feedback.score,
+        t4score : obj.corpusCleaning.feedback.score
+      })
+    }
+    })
+})
+
 //The function to return the test resutlts
 app.post('/TestThis', function(req, res){
-  var myres = Engine.testRegex(req.body.response, req.body.task);
+  try{
+
+    var myres = Engine.testRegex(req.body.response, req.body.task);
+  }
+  catch(e){
+    myres = {score: "undefined", passFail: "undefined"}
+  }
   var obj;
   console.log(myres);
   fs.readFile('Answers.json', 'utf8', function readFileCallback(err, data){
